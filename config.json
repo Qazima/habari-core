@@ -17,22 +17,6 @@
         }
       ],
       "connections": [
-        {
-          "connectionType": "com.qazima.habari.plugin.directory.Plugin",
-          "defaultPages": [
-            "index.htm",
-            "index.html",
-            "default.html"
-          ],
-          "errorPages": [
-            {"404": "/home/csluikidikilest/Documents/Development/Web/errors/404.html"},
-            {"500": "/home/csluikidikilest/Documents/Development/Web/errors/500.html"}
-          ],
-          "path": "/home/csluikidikilest/Documents/Development/Web/",
-          "configurationUri": "^/config.*",
-          "metadataUri": "^/metadata.*",
-          "uri": "^/.*"
-        }
       ]
     }
   ]
