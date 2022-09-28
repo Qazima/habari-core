@@ -1,0 +1,39 @@
+{
+  "configurations": [
+    {
+      "allowGet": true,
+      "allowPost": false,
+      "allowPut": false,
+      "allowDelete": false,
+      "defaultPageSize": 0,
+      "servers": [
+        {
+          "secured": false,
+          "host": "0.0.0.0",
+          "port": 9000,
+          "configurationUri": "/config",
+          "metadataUri": "/metadata",
+          "uri": "/"
+        }
+      ],
+      "connections": [
+        {
+          "connectionType": "com.qazima.habari.plugin.directory.Plugin",
+          "defaultPages": [
+            "index.htm",
+            "index.html",
+            "default.html"
+          ],
+          "errorPages": [
+            {"404": "/home/csluikidikilest/Documents/Development/Web/errors/404.html"},
+            {"500": "/home/csluikidikilest/Documents/Development/Web/errors/500.html"}
+          ],
+          "path": "/home/csluikidikilest/Documents/Development/Web/",
+          "configurationUri": "^/config.*",
+          "metadataUri": "^/metadata.*",
+          "uri": "^/.*"
+        }
+      ]
+    }
+  ]
+}
