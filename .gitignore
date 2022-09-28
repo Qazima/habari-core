@@ -2,3 +2,4 @@
 /target/
 /plugins/*
 /out/
+/config.json
