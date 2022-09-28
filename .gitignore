@@ -1,5 +1,5 @@
 # Project exclude paths
 /target/
-/plugins/*
+/plugins/
 /out/
-/config.json
+config.json
