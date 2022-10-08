@@ -20,17 +20,17 @@ public class ConfigurationContext implements HttpHandler {
     }
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
-        String requestUri = exchange.getRequestURI().getPath();
+    public void handle(HttpExchange httpExchange) throws IOException {
+        String requestUri = httpExchange.getRequestURI().getPath();
         List<Plugin> plugins = configuration.getConnections().stream().filter(item -> Pattern.compile(item.getUri()).matcher(requestUri).matches()).toList();
         Content content = new Content();
         int contentResult = HttpStatus.SC_NOT_FOUND;
         for (Plugin plugin : plugins) {
-            contentResult = plugin.processConfigure(exchange, content);
+            contentResult = plugin.processConfigure(httpExchange, content);
         }
         byte[] response = content.getBody();
-        exchange.sendResponseHeaders(contentResult, response.length);
-        OutputStream outputStream = exchange.getResponseBody();
+        httpExchange.sendResponseHeaders(contentResult, response.length);
+        OutputStream outputStream = httpExchange.getResponseBody();
         outputStream.write(response);
         outputStream.close();
     }
