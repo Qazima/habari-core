@@ -12,11 +12,31 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Parameter {
     @Getter
     @JsonProperty("configurations")
     private final List<Configuration> configurations = new ArrayList<>();
+
+    public void synchronizeServersConfiguration() {
+        for (Configuration configuration : getConfigurations()) {
+            for (Server server : configuration.getServers()) {
+                if(server.getDeleteAllowed().isEmpty()) {
+                    server.setDeleteAllowed(Optional.of(configuration.isDeleteAllowed()));
+                }
+                if(server.getGetAllowed().isEmpty()) {
+                    server.setGetAllowed(Optional.of(configuration.isGetAllowed()));
+                }
+                if(server.getPostAllowed().isEmpty()) {
+                    server.setPostAllowed(Optional.of(configuration.isPostAllowed()));
+                }
+                if(server.getPutAllowed().isEmpty()) {
+                    server.setPutAllowed(Optional.of(configuration.isPutAllowed()));
+                }
+            }
+        }
+    }
 
     public void configureServers() throws IOException, UnrecoverableKeyException, CertificateException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         for (Configuration configuration : getConfigurations()) {

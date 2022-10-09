@@ -22,7 +22,7 @@ public class UriContext implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String requestUri = httpExchange.getRequestURI().getPath();
-        List<Plugin> plugins = configuration.getConnections().stream().filter(item -> Pattern.compile(item.getUri()).matcher(requestUri).matches()).toList();
+        List<Plugin> plugins = configuration.getConnections().stream().filter(item -> Pattern.compile(item.getConfiguration().getUri()).matcher(requestUri).matches()).toList();
         Content content = new Content();
         int contentResult = HttpStatus.SC_NOT_FOUND;
         for (Plugin plugin : plugins) {

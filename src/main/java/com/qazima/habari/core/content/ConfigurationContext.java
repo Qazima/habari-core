@@ -9,8 +9,6 @@ import org.apache.http.HttpStatus;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class ConfigurationContext implements HttpHandler {
     private final Configuration configuration;
@@ -22,10 +20,10 @@ public class ConfigurationContext implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String requestUri = httpExchange.getRequestURI().getPath();
-        List<Plugin> plugins = configuration.getConnections().stream().filter(item -> Pattern.compile(item.getUri()).matcher(requestUri).matches()).toList();
+        //List<Plugin> plugins = configuration.getConnections().stream().filter(item -> Pattern.compile(item.getConfiguration().getUri()).matcher(requestUri).matches()).toList();
         Content content = new Content();
         int contentResult = HttpStatus.SC_NOT_FOUND;
-        for (Plugin plugin : plugins) {
+        for (Plugin plugin : configuration.getConnections()) {
             contentResult = plugin.processConfigure(httpExchange, content);
         }
         byte[] response = content.getBody();

@@ -1,11 +1,15 @@
 package com.qazima.habari.core.configuration;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.qazima.habari.plugin.core.deserializer.OptionalBooleanDeserializer;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsConfigurator;
 import com.sun.net.httpserver.HttpsParameters;
 import com.sun.net.httpserver.HttpsServer;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.log4j.LogManager;
 
 import javax.net.ssl.*;
 import java.io.FileInputStream;
@@ -15,6 +19,7 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Server {
     @Getter
@@ -23,42 +28,75 @@ public class Server {
     private HttpsServer httpsServer;
     @Getter
     @Setter
-    private String configurationUri = "/configuration";
+    @JsonProperty("configurationUri")
+    private String configurationUri = "";
     @Getter
     @Setter
+    @JsonProperty("allowDelete")
+    @JsonDeserialize(using = OptionalBooleanDeserializer.class)
+    private Optional<Boolean> deleteAllowed = Optional.empty();
+    @Getter
+    @Setter
+    @JsonProperty("allowGet")
+    @JsonDeserialize(using = OptionalBooleanDeserializer.class)
+    private Optional<Boolean> getAllowed = Optional.empty();
+    @Getter
+    @Setter
+    @JsonProperty("host")
     private String host = "127.0.0.1";
     @Getter
     @Setter
+    @JsonProperty("keyFile")
     private String keyFile = "";
     @Getter
     @Setter
+    @JsonProperty("keyManagerProtocol")
     private String keyManagerProtocol = "";
     @Getter
     @Setter
+    @JsonProperty("keyPassword")
     private String keyPassword = "";
     @Getter
     @Setter
-    private String metadataUri = "/metadata";
+    @JsonProperty("metadataUri")
+    private String metadataUri = "";
     @Getter
     @Setter
+    @JsonProperty("port")
     private int port = 9000;
     @Getter
     @Setter
+    @JsonProperty("allowPost")
+    @JsonDeserialize(using = OptionalBooleanDeserializer.class)
+    private Optional<Boolean> postAllowed = Optional.empty();
+    @Getter
+    @Setter
+    @JsonProperty("allowPut")
+    @JsonDeserialize(using = OptionalBooleanDeserializer.class)
+    private Optional<Boolean> putAllowed = Optional.empty();
+    @Getter
+    @Setter
+    @JsonProperty("secured")
     private boolean secured = false;
     @Getter
     @Setter
+    @JsonProperty("sslProtocol")
     private String sslProtocol = "";
     @Getter
     @Setter
+    @JsonProperty("storePassword")
     private String storePassword = "";
     @Getter
     @Setter
+    @JsonProperty("storeProtocol")
     private String storeProtocol = "";
     @Getter
     @Setter
+    @JsonProperty("trustManagerProtocol")
     private String trustManagerProtocol = "";
     @Getter
     @Setter
+    @JsonProperty("uri")
     private String uri = "/";
 
     public void configureListener() throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
@@ -98,7 +136,11 @@ public class Server {
     }
 
     public void startListener() {
-        getListener().setExecutor(null);
-        getListener().start();
+        if(getListener() != null) {
+            getListener().setExecutor(null);
+            getListener().start();
+        } else {
+            LogManager.getLogger(ConfigurationManager.class).fatal("Configuration for the server http" + (isSecured() ? "s" : "" ) + "://" + getHost() + ":" + getPort() + getUri() + " is not well defined. Please refer the documentation");
+        }
     }
 }

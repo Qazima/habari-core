@@ -40,6 +40,7 @@ public class ConfigurationManager {
         ObjectMapper mapper = new ObjectMapper();
         try {
             parameter = mapper.readValue(new File(configurationFileName), Parameter.class);
+            parameter.synchronizeServersConfiguration();
         } catch (IOException e) {
             LogManager.getLogger(ConfigurationManager.class).fatal(e);
         }
