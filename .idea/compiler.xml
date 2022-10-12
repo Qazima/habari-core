@@ -8,10 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="habari-core" />
+        <module name="habari-plugin-core" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="habari-plugin-core" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
