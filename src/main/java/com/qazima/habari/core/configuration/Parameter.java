@@ -21,6 +21,8 @@ public class Parameter {
 
     public void synchronizeServersConfiguration() {
         for (Configuration configuration : getConfigurations()) {
+            configuration.synchronizeConnectionsTypes();
+
             for (Server server : configuration.getServers()) {
                 if(server.getDeleteAllowed().isEmpty()) {
                     server.setDeleteAllowed(Optional.of(configuration.isDeleteAllowed()));

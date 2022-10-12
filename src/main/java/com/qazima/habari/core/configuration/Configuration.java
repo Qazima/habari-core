@@ -43,6 +43,12 @@ public class Configuration {
     @JsonProperty("allowPut")
     private boolean putAllowed = false;
 
+    public void synchronizeConnectionsTypes() {
+        for (Plugin plugin : getConnections()){
+            plugin.setConnectionType(plugin.getClass().getTypeName());
+        }
+    }
+
     public void configureServers() throws IOException, UnrecoverableKeyException, CertificateException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         for (Server server : getServers()) {
             server.configureListener();
