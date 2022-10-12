@@ -44,4 +44,8 @@ You can find a list of all available plugins at [this place](https://github.com/
 
 When knowing java and in the case the plugin doesn't already exist, feel free to take a look at existing plugins to create yours.
 
-To block the configuration access, just leave blank the value in the configuration file.  
+To block the configuration access, just leave blank the value in the configuration file.
+
+## Status
+[![Build](https://github.com/Qazima/habari-core/actions/workflows/maven-build.yml/badge.svg)](https://github.com/Qazima/habari-core/actions/workflows/maven-build.yml)
+[![Publish Package](https://github.com/Qazima/habari-core/actions/workflows/maven-publish-package.yml/badge.svg)](https://github.com/Qazima/habari-core/actions/workflows/maven-publish-package.yml)
