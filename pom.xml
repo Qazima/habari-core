@@ -62,10 +62,6 @@
           <id>central</id>
           <url>https://repo1.maven.org/maven2</url>
         </repository>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/Qazima/habari-plugin-core</url>
-        </repository>
     </repositories>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
